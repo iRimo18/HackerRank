@@ -1,14 +1,11 @@
 package in.rimo.hackerrank.algo;
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
-    static int[] climbingLeaderboard(int[] scores, int[] alice) {
+import java.io.*;
+import java.util.*;
+
+public class Climbing_the_leaderboard
+{
+    private static int[] climbingLeaderboard(int[] scores, int[] alice) {
         int[] aliceRank = new int[alice.length];
         int numScores = scores.length;
         // get the maximum rank possible among all
