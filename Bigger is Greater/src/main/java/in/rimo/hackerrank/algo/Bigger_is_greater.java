@@ -3,36 +3,56 @@ package in.rimo.hackerrank.algo;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Bigger_is_greater
 {
+
     private static final Scanner scanner = new Scanner(System.in);
 
-    static String biggerIsGreater(String word)
+    // Complete the biggerIsGreater function below.
+    static String biggerIsGreater(String w)
     {
-        int lastIndex = word.length() - 1;
-        String ans = permute(word, lastIndex, word.charAt(lastIndex), "");
-        if (ans.equals(word)) {
-            return "no answer";
-        }
-        return ans;
-    }
+        char[] charArray = w.toCharArray();
+        int n = charArray.length;
+        int endIndex = 0;
 
-    private static String permute(String str, int index, char ch, String sub)
-    {
-        // the first letter is used for comparison, so end here
-        if (index == 0) {
-            return str + sub;
-        }
-        // from last to first check if the previous letter is larger then replace, ans is obtained
-        for (int i = index; i > 0; i--) {
-            if (str.charAt(i - 1) < ch) {
-                return str.substring(0, i - 1) + ch + sub + str.substring(i - 1, index);
+        // Start from the right most character and find the first character that is smaller than previous character.
+        for (endIndex = n - 1; endIndex > 0; endIndex--) {
+            if (charArray[endIndex] > charArray[endIndex - 1]) {
+                break;
             }
         }
-        // no larger is found, so take the before letter and do the same in recursion
-        return permute(str.substring(0, index), index - 1, str.charAt(index - 1), ch + sub);
+
+        if (endIndex == 0) {
+            return "no answer";
+        }
+        else {
+            int firstSmallChar = charArray[endIndex - 1];
+            int nextSmallChar = endIndex;
+
+            // Find the smallest character on right side of (endIndex - 1)'th character that is greater than charArray[endIndex - 1]
+            for (int startIndex = endIndex + 1; startIndex < n; startIndex++) {
+                if (charArray[startIndex] > firstSmallChar && charArray[startIndex] < charArray[nextSmallChar]) {
+                    nextSmallChar = startIndex;
+                }
+            }
+
+            // Swap the above found next smallest character with charArray[endIndex - 1]
+            swap(charArray, endIndex - 1, nextSmallChar);
+
+            // Sort the charArray after (endIndex - 1)in ascending order
+            Arrays.sort(charArray, endIndex, n);
+        }
+        return new String(charArray);
+    }
+
+    static void swap(char[] charArray, int i, int j)
+    {
+        char temp = charArray[i];
+        charArray[i] = charArray[j];
+        charArray[j] = temp;
     }
 
     public static void main(String[] args)
@@ -57,4 +77,3 @@ public class Bigger_is_greater
         scanner.close();
     }
 }
-
