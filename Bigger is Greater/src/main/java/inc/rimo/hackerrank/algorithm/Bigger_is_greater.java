@@ -1,4 +1,4 @@
-package in.rimo.hackerrank.algo;
+package inc.rimo.hackerrank.algorithm;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
